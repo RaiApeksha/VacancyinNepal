@@ -1,0 +1,13 @@
+{
+    "VIN/VacancyinNepal": {
+        "app_status": "started",
+        "app_uri": "",
+        "app_version": 2,
+        "config_files": [],
+        "domain": "vacancyinnepal.com",
+        "entry_point": "application",
+        "env_vars": {},
+        "python_version": "3.10",
+        "startup_file": "passenger_wsgi.py"
+    }
+}
