@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  
         'NAME': 'vacancyi_vin_db', 
         'USER': 'vacancyi_user_db',  
-        'PASSWORD': '12345!@#$%QWER', 
+        'PASSWORD': '**************', 
         'HOST': 'localhost', 
         'PORT': '3306', 
     }
@@ -160,4 +160,5 @@ LOGGING = {
 }
 
 LOGIN_URL = "student_login"
+
 
