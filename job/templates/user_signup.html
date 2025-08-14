@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<script>
+    function checkpass() {
+        const pwd = document.signup.pwd.value;
+        const cpwd = document.signup.cpwd.value;
+        if (pwd !== cpwd) {
+            alert('Password and confirm password do not match');
+            document.signup.cpwd.focus();
+            return false;
+        }
+        return true;
+    }
+
+    function togglePassword(id, iconId) {
+        const input = document.getElementById(id);
+        const icon = document.getElementById(iconId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2 class="text-primary">Sign Up</h2>
+        <p class="text-muted">Register as a <strong>Student</strong> or <strong>Recruiter</strong></p>
+    </div>
+
+    <form name="signup" method="post" action="{% url 'user_signup' %}" onsubmit="return checkpass();" enctype="multipart/form-data">
+        {% csrf_token %}  <!-- CSRF Token to prevent CSRF attacks -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <label>First Name</label>
+            <input type="text" class="form-control mb-3" name="fname" placeholder="Enter your First Name" value="{{ fname }}" required>
+
+            <label>Contact Number</label>
+            <input type="text" class="form-control mb-3" name="contact" placeholder="Enter your Contact Number" value="{{ contact }}" required>
+
+            <label>Password</label>
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter password" required>
+                <span class="input-group-text">
+                    <i class="fa fa-eye" id="togglePwd" onclick="togglePassword('pwd', 'togglePwd')" style="cursor:pointer;"></i>
+                </span>
+            </div>
+
+            <label>Gender</label>
+            <div class="mb-3">
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="gender" id="male" value="Male" required {% if gender == "Male" %}checked{% endif %}>
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="gender" id="female" value="Female" required {% if gender == "Female" %}checked{% endif %}>
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+            </div>
+
+            <label>Registering As</label>
+            <select class="form-select mb-3" name="role" required>
+                <option value="">Select Role</option>
+                <option value="student" {% if role == "student" %}selected{% endif %}>Student</option>
+                <option value="recruiter" {% if role == "recruiter" %}selected{% endif %}>Recruiter</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label>Last Name</label>
+            <input type="text" class="form-control mb-3" name="lname" placeholder="Enter your Last Name" value="{{ lname }}" required>
+
+            <label>Email ID</label>
+            <input type="email" class="form-control mb-3" name="email" placeholder="Enter your Email ID" value="{{ email }}" required>
+
+            <label>Confirm Password</label>
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" name="cpwd" id="cpwd" placeholder="Confirm password" required>
+                <span class="input-group-text">
+                    <i class="fa fa-eye" id="toggleCpwd" onclick="togglePassword('cpwd', 'toggleCpwd')" style="cursor:pointer;"></i>
+                </span>
+            </div>
+
+            <label>Upload Profile Photo</label>
+            <input type="file" class="form-control mb-3" name="image" accept="image/*" required>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <input type="submit" class="btn btn-success px-4" value="Sign Up">
+    </div>
+
+</form>
+
+    {% if error %}
+        <div class="alert alert-danger mt-3 text-center">{{ error }}</div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

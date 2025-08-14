@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Recruiter Dashboard</h2>
+
+<a href="/post_job" class="btn btn-primary mb-3">Post New Job</a>
+<a href="{% url 'update_recruiter_profile' %}" class="btn btn-outline-secondary mb-3 ms-2">Edit Profile</a>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Experience</th>
+                <th>Salary</th>
+                <th>Posted On</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+            <tr>
+                <td>{{ job.title }}</td>
+                <td>{{ job.category }}</td>
+                <td>{{ job.location }}</td>
+                <td>{{ job.experience }}</td>
+                <td>{{ job.salary }}</td>
+                <td>{{ job.created|date:"M d, Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="text-center">No jobs posted yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

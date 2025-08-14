@@ -1,0 +1,9 @@
+from django.apps import AppConfig
+
+class JobConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'j
+    def ready(self):
+        print("✅ job.apps.JobConfig.ready() called")
+        import job.signals
+

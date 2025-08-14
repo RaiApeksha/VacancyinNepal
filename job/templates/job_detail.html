@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="card-title">{{ job.title }}</h2>
+        <p class="text-muted">
+            Location: {{ job.location }} |
+            Category: {{ job.category }} |
+            Salary: {{ job.salary }}
+        </p>
+        <p><strong>Experience:</strong> {{ job.experience }}</p>
+        <p>{{ job.description }}</p>
+    </div>
+</div>
+
+{% if user.is_authenticated and is_student %}
+    <div class="card">
+        <div class="card-header">
+            Apply for this Job
+        </div>
+        <div class="card-body">
+            {# Display any Django messages (errors, success) #}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Job Application Form -->
+            <form method="post"
+                  action="{% url 'apply_job' job.id %}"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="resume" class="form-label">Upload Resume (PDF or DOC)</label>
+                    <input type="file" class="form-control"
+                           name="resume" accept=".pdf,.doc,.docx" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Now</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        Please <a href="{% url 'student_login' %}">login</a> as a student to apply.
+    </div>
+{% endif %}
+{% endblock %}

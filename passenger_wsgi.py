@@ -1,0 +1,1 @@
+/home/vacancyi/VIN/passenger_wsgi.py

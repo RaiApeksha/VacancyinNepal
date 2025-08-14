@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ✅ Flash Messages -->
+{% if messages %}
+  <div class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<div class="container mt-4">
+  <!-- ✅ Header with Logout -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">Admin Dashboard</h2>
+    <a href="{% url 'admin_logout' %}" class="btn btn-danger">Logout</a>
+  </div>
+
+  <!-- ✅ Dashboard Summary Cards -->
+  <div class="row text-center mb-5">
+    <div class="col-md-3">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Students</h5>
+          <p class="display-6 text-success">{{ total_students }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-info shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Recruiters</h5>
+          <p class="display-6 text-success">{{ total_recruiters }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-warning shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Jobs</h5>
+          <p class="display-6 text-success">{{ total_jobs }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card border-danger shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Applications</h5>
+          <p class="display-6 text-success">{{ total_applications }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Pending Recruiters Table -->
+  <h4 class="text-dark mb-3">Pending Recruiter Approvals</h4>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Username</th>
+          <th>Company</th>
+          <th>Mobile</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for recruiter in pending_recruiters %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            {% if recruiter.image %}
+              <img src="{{ recruiter.image.url }}" alt="Profile" width="50" height="50" class="rounded-circle border">
+            {% else %}
+              <span class="text-muted">No image</span>
+            {% endif %}
+          </td>
+          <td>{{ recruiter.user.username }}</td>
+          <td>{{ recruiter.company }}</td>
+          <td>{{ recruiter.mobile }}</td>
+          <td>
+            {% if recruiter.status == 'Pending' %}
+              <a href="{% url 'update_recruiter_status' recruiter.id 'approve' %}" class="btn btn-success btn-sm">Approve</a>
+              <a href="{% url 'update_recruiter_status' recruiter.id 'reject' %}" class="btn btn-danger btn-sm">Reject</a>
+            {% else %}
+              <span class="badge {% if recruiter.status == 'Approved' %}bg-success{% else %}bg-secondary{% endif %}">
+                {{ recruiter.status }}
+              </span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="text-center">No pending recruiters.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ 
+
+{% endblock %}
+print("Admin home accessed, totals:", total_students, total_recruiters)

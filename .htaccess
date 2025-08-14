@@ -1,0 +1,24 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/vacancyi/VIN/VacancyinNepal"
+PassengerBaseURI "/"
+PassengerPython "/home/vacancyi/virtualenv/VIN/VacancyinNepal/3.10/bin/python"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+PassengerEnabled on
+PassengerAppRoot /home/vacancyi/public_html
+PassengerPython /home/vacancyi/virtualenv/VIN/VacancyinNepal/3.10/bin/python
+
+# Enable static file serving
+Alias /static /home/vacancyi/public_html/staticfiles
+<Directory /home/vacancyi/public_html/staticfiles>
+    Require all granted
+</Directory>
+
+Alias /media /home/vacancyi/public_html/media
+<Directory /home/vacancyi/public_html/media>
+    Require all granted
+</Directory>
+
+# Allow Django and WSGI
+<FilesMatch "\.py$">
+    Require all granted
+</FilesMatch>

@@ -1,0 +1,49 @@
+# --- recruiter_applications.html (Show applicants with download resume) ---
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Job Applications</h2>
+
+{% for job in jobs %}
+    <div class="card mb-4">
+        <div class="card-header bg-light">
+            <strong>{{ job.title }}</strong> ({{ job.category }}) - {{ job.location }}
+        </div>
+        <div class="card-body">
+            {% with job.application_set.all as applications %}
+                {% if applications %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Gender</th>
+                                <th>Resume</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for app in applications %}
+                            <tr>
+                                <td>{{ app.student.user.get_full_name }}</td>
+                                <td>{{ app.student.user.username }}</td>
+                                <td>{{ app.student.mobile }}</td>
+                                <td>{{ app.student.gender }}</td>
+                                <td>
+                                    <a href="{{ app.resume.url }}" class="btn btn-sm btn-outline-primary" download>
+                                        Download Resume
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <p>No applications yet.</p>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

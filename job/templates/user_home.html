@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Welcome {{ request.user.first_name }}</h2>
+
+<p>
+  <a href="{% url 'update_student_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
+</p>
+
+<h3>Your Applications:</h3>
+<ul>
+  {% for app in applications %}
+    <li>{{ app.job.title }} — Applied on {{ app.applied_on }}</li>
+  {% empty %}
+    <li>No applications yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
