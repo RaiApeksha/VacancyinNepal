@@ -1,6 +1,8 @@
- Vacancy in Nepal
- Vacancy in Nepal is a professional online job portal designed to connect job seekers and recruiters across Nepal.  
+
+Vacancy in Nepal is a professional online job portal designed to connect job seekers and recruiters across Nepal.  
 The platform allows job seekers to search and apply for jobs while enabling recruiters to post and manage job listings after admin approval.
+
+live Website: https://vacancyinnepal.com/
 
  Features
 
@@ -25,9 +27,9 @@ The platform allows job seekers to search and apply for jobs while enabling recr
   - Contact form with email notifications, and database storage.
   - Floating WhatsApp/Messenger support buttons.
   - SEO-friendly meta tags.
+ 
   - 
 Tech Stack
-
 - **Backend**: [Django](https://www.djangoproject.com/) (Python 3.10+)
 - **Frontend**: HTML5, CSS3, Bootstrap 5, JavaScript
 - **Database**: SQLite (development) / MySQL (production)
@@ -44,10 +46,13 @@ VacancyinNepal/
 └── requirements.txt # Python dependencie
 
 
-live Website: https://vacancyinnepal.com/
+
 
 License
 This project is licensed under the MIT License.
 
+🙋 Contact
+📧 Email: apeksharai2022@gmail.com
+End to End Devlopment by :Apeksha Rai 
+https://np.linkedin.com/in/apeksha-rai-6226521b6
 
-EN
